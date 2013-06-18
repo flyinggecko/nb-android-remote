@@ -4,3 +4,12 @@
 *.jar
 *.war
 *.ear
+bin/
+*.aux
+*.synctex.gz
+*.toc
+*.snm
+*.out
+*.log
+*.nav
+*.csv
