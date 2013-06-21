@@ -3,7 +3,10 @@
 
     <string name="app_name">NeverBall Remote</string>
     <string name="action_settings">Settings</string>
-    <string name="connection">Connectiondetails: </string>
+    <string name="connection">Connectiondetails:</string>
     <string name="buttonConnect">Establish connection</string>
+    <string name="textConnectionHelp">IP-address of Neverball-server. E.g.: 192.168.1.4</string>
+    <string name="startscreenDiscription">Startscreen of Neverball remote app. Here you should enter the connectiondetails.</string>
+    <string name="noIP">This is no IP-address.</string>
 
 </resources>

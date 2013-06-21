@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="action_settings">Einstellungen</string>
     <string name="app_name">NeverBall Remote</string>
     <string name="connection">Verbindungsdetails: </string>
     <string name="buttonConnect">Verbindung aufbauen</string>
-
+    <string name="textConnectionHelp">IP-Adresse des Neverball-Servers. Beispiel: 192.168.1.4</string>
+    <string name="startscreenDiscription">Startbildschirm der Neverball-Remote. Zum eintragen der Verbindungsdaten</string>
+    <string name="noIP">Das ist keine IP-Adresse.</string>
+    
 </resources>
