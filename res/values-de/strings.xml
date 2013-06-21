@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="action_settings">Einstellungen</string>
+    <string name="app_name">NeverBall Remote</string>
+    <string name="connection">Verbindungsdetails: </string>
+    <string name="buttonConnect">Verbindung aufbauen</string>
+
+</resources>
