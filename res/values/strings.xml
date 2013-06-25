@@ -8,5 +8,7 @@
     <string name="textConnectionHelp">IP-address of Neverball-server. E.g.: 192.168.1.4</string>
     <string name="startscreenDiscription">Startscreen of Neverball remote app. Here you should enter the connectiondetails.</string>
     <string name="noIP">This is no IP-address.</string>
+    <string name="title_activity_game">NeverBall Remote</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

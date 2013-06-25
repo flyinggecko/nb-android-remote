@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.flyinggecko.nb_android_remote"
+    android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="1.0" android:installLocation="auto">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -12,8 +13,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait" >
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme" >
         <activity
             android:name="org.flyinggecko.nb_android_remote.Startscreen"
             android:label="@string/app_name" >
@@ -22,6 +23,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="org.flyinggecko.nb_android_remote.Game"
+            android:label="@string/title_activity_game" >
         </activity>
     </application>
 
