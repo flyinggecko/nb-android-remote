@@ -16,6 +16,11 @@ public class Game extends Activity implements SensorEventListener
     private final float[] _deltaRotationVector = new float[4];
     private float _timestamp;
     private static final double EPSILON = 0.00001;
+    
+    // Variablen für Neverball: _r_nb und _c_nb sollten so behandelt werden wie hier beschrieben:
+    // https://github.com/jfietkau/neverball-fbiuhh/blob/master/client_java/NbNetController.java
+    // und in der Aufgabenstellung
+    private short _z_nb, _x_nb, _r_nb, _c_nb;
 	
 
 	@Override
@@ -46,7 +51,22 @@ public class Game extends Activity implements SensorEventListener
 	public void onAccuracyChanged(Sensor sensor, int accuracy)
 	{
 		
-		
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		_sensorManager.unregisterListener(this);
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		_sensorManager.registerListener(this,
+		        _sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+		        SensorManager.SENSOR_DELAY_GAME);
 	}
 	
 	private void getGyroscope(SensorEvent event)
@@ -87,6 +107,29 @@ public class Game extends Activity implements SensorEventListener
         // User code should concatenate the delta rotation we computed with the current rotation
         // in order to get the updated rotation.
         // rotationCurrent = rotationCurrent * deltaRotationMatrix;
+        
+        // y = hoch und runter -> Neverball: x
+        // x = links und rechts -> Neverball: z
+        
+        //TODO: Wir sollten uns überlegen, wie wir das ganze abhängig zur eigentlichen Rotation gestalten. 
+        if (_deltaRotationVector[0] > 0f)
+        {
+        	_z_nb = (short) Math.min(_z_nb - 1000, -32000);
+        }
+        if (_deltaRotationVector[0] < 0f)
+        {
+        	_z_nb = (short) Math.max(_z_nb + 1000, 32000);
+        }
+        if (_deltaRotationVector[1] > 0f)
+        {
+        	_x_nb = (short) Math.min(_x_nb - 1000, -32000);
+        }
+        if (_deltaRotationVector[1] < 0f)
+        {
+        	_x_nb = (short) Math.max(_x_nb + 1000, 32000);
+        }
+        //TODO: senden der daten. das senden sollte so etwa 60/sekunde sein. eventuell auch etwas weniger.. vllt so 55
+        
 	}
 
 }
