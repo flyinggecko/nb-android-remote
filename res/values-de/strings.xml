@@ -8,5 +8,9 @@
     <string name="textConnectionHelp">IP-Adresse des Neverball-Servers. Beispiel: 192.168.1.4</string>
     <string name="startscreenDiscription">Startbildschirm der Neverball-Remote. Zum eintragen der Verbindungsdaten</string>
     <string name="noIP">Das ist keine IP-Adresse.</string>
+    <string name="unknown_host_title">Host unbekannt</string>
+	<string name="unkown_host_message">Host ist unbekannt: </string>
+    <string name="io_error_title">No IO</string>
+    <string name="io_error_message">Couldn\'t get IO to: </string>
     
 </resources>

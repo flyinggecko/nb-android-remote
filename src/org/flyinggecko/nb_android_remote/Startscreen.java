@@ -20,10 +20,12 @@
 
 package org.flyinggecko.nb_android_remote;
 
+import org.flyinggecko.nb_android_remote.helper.ConnectionHolder;
 import org.flyinggecko.nb_android_remote.helper.IPAddressValidator;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.Menu;
@@ -52,7 +54,7 @@ public class Startscreen extends Activity {
 			public void onClick(View v) {
 				_wrongIPText.setText("");
 				_wrongIPText.setTextColor(_oldColors_IP);
-				buttonConnect_Click();
+				buttonConnect_Click(v);
 			}
 		});
 	}
@@ -71,11 +73,13 @@ public class Startscreen extends Activity {
 	 * 
 	 * It also checks the ip-address for validity
 	 */
-	public void buttonConnect_Click() {
+	public void buttonConnect_Click(View view) {
 		IPAddressValidator validator = new IPAddressValidator();
 		String ip = _connectionText.getText().toString();
 		if (validator.validate(ip)) {
-			//TODO: Invoke connection!
+			ConnectionHolder.getConnection(ip);
+			Intent game = new Intent(view.getContext(), Game.class);
+			startActivityForResult(game, 0);
 		}
 		else
 		{

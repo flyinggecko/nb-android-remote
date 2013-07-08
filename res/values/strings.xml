@@ -7,8 +7,11 @@
     <string name="buttonConnect">Establish connection</string>
     <string name="textConnectionHelp">IP-address of Neverball-server. E.g.: 192.168.1.4</string>
     <string name="startscreenDiscription">Startscreen of Neverball remote app. Here you should enter the connectiondetails.</string>
-    <string name="noIP">This is no IP-address.</string>
+    <string name="noIP">This is not an IP-address.</string>
     <string name="title_activity_game">NeverBall Remote</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="unknown_host_title">Unknown Host</string>
+	<string name="unkown_host_message">Host is unknown: </string>
+    <string name="io_error_title">No IO</string>
+    <string name="io_error_message">Couldn\'t get IO to: </string>
+	
 </resources>
