@@ -89,7 +89,6 @@ class Connection extends AsyncTask<Object, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Object... params) {
-		// Activity activity = (Activity) params[1];
 		_Host = (String) params[0];
 		_Port = 33333;
 		_echoSocket = null;
