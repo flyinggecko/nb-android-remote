@@ -1,6 +1,7 @@
 package org.flyinggecko.nb_android_remote;
 
 import org.flyinggecko.nb_android_remote.helper.*;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,7 +13,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
-import android.widget.TextView;
 
 public class Game extends Activity implements SensorEventListener
 {
@@ -25,14 +25,9 @@ public class Game extends Activity implements SensorEventListener
 
 	private Timer _timer;
 
-	private TextView _sendOutput;
 
 	private float[] _Gravs;
-	private float[] _GeoMags;
-	private boolean _GravB;
-	private boolean _GeoB;
-	float[] _RotationM;
-	float[] _radian;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,20 +35,11 @@ public class Game extends Activity implements SensorEventListener
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_game);
-		_sendOutput = (TextView) findViewById(R.id.sendOutput);
 		_sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		_Gravs = new float[3];
-		_GeoMags = new float[3];
-		_GravB = false;
-		_GeoB = false;
-		_RotationM = new float[9];
-		_radian = new float[3];
 
 		_sensorManager.registerListener(this,
 				_sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-				SensorManager.SENSOR_DELAY_GAME);
-		_sensorManager.registerListener(this,
-				_sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
 				SensorManager.SENSOR_DELAY_GAME);
 
 		run();
@@ -66,6 +52,8 @@ public class Game extends Activity implements SensorEventListener
 		{
 			public void run()
 			{
+				Log.w("X", String.valueOf(_x_nb));
+				Log.w("Z", String.valueOf(_z_nb));
 				ConnectionHolder.write(_x_nb);
 				ConnectionHolder.write(_z_nb);
 				ConnectionHolder.write(_r_nb);
@@ -73,7 +61,7 @@ public class Game extends Activity implements SensorEventListener
 
 				ConnectionHolder.flush();
 			}
-		}, 0, 55);
+		}, 0, 60);
 
 	}
 
@@ -88,59 +76,29 @@ public class Game extends Activity implements SensorEventListener
 	@Override
 	public void onSensorChanged(SensorEvent event)
 	{
+		
+		
+		
 		switch (event.sensor.getType())
 		{
 			case Sensor.TYPE_ACCELEROMETER:
-				System.arraycopy(event.values.clone(), 0, _Gravs, 0, 3);
-				_GravB = true;
-			case Sensor.TYPE_MAGNETIC_FIELD:
-				System.arraycopy(event.values.clone(), 0, _GeoMags, 0, 3);
-				_GeoB = true;
+				System.arraycopy(event.values, 0, _Gravs, 0, 3);
 				break;
 			default:
 				return;
 		}
-
-		if (_GravB && _GeoB)
+		
+		for (int i = 0 ; i < 3 ; i++)
 		{
-			boolean success = SensorManager.getRotationMatrix(_RotationM, null,
-					_Gravs, _GeoMags);
-			if (success)
+			if (_Gravs[i] > 9.81f)
 			{
-				SensorManager.getRotationMatrix(_RotationM, null,
-						_Gravs, _GeoMags);
-				SensorManager.getOrientation(_RotationM, _radian);
-				if (_radian[1] < 0.0f)
-				{
-					_x_nb = (short) (-1 * (1 / 1 + Math.exp(-Math
-							.abs(_radian[1]) * 32000)));
-				}
-				else if (_radian[1] >= 0.0f)
-				{
-					_x_nb = (short) (1 / (1 + Math.exp(-_radian[1])) * 32000);
-				}
-				if (_radian[0] < 0.0f)
-				{
-					_z_nb = (short) (-1 * (1 / 1 + Math.exp(-Math
-							.abs(_radian[0]) * 32000)));
-				}
-				else if (_radian[0] >= 0.0f)
-				{
-					_z_nb = (short) (1 / (1 + Math.exp(-_radian[0])) * 32000);
-				}
-
-				if (_sendOutput.length() < 50)
-				{
-					_sendOutput.setText(_sendOutput.getText() + "x = " + _x_nb
-							+ " ; z = " + _z_nb + "\n");
-				}
-				else
-				{
-					_sendOutput.setText("x = " + _x_nb + " ; z = " + _z_nb
-							+ "\n");
-				}
+				_Gravs[i] = 9.81f;
 			}
+			
 		}
+		
+		_z_nb = (short)  (- 3300 * _Gravs[0]);
+		_x_nb = (short) (- 3300 * _Gravs[1]);
 	}
 
 	@Override
@@ -161,7 +119,7 @@ public class Game extends Activity implements SensorEventListener
 	{
 		super.onResume();
 		_sensorManager.registerListener(this,
-				_sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+				_sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_GAME);
 	}
 }

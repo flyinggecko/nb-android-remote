@@ -3,6 +3,7 @@
     android:id="@+id/LayoutStart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:contentDescription="@string/startscreenDiscription"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -35,8 +36,10 @@
 
     <Button
         android:id="@+id/buttonConnect"
+        style="@drawable/ic_launcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_launcher"
         android:contentDescription="@string/startscreenDiscription"
         android:text="@string/buttonConnect" />
 

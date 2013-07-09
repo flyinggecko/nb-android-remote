@@ -5,6 +5,7 @@
 *.war
 *.ear
 bin/
+external/
 *.aux
 *.synctex.gz
 *.toc
